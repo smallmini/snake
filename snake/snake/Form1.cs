@@ -168,7 +168,7 @@ namespace snake
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.Pause();
-            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.4by Li XiaYu aasll@126.com", "关于");
+            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.5by Li XiaYu aasll@126.com", "关于");
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,6 +220,11 @@ namespace snake
             StartNewGame();
         }
 
+        private void uPC迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            map = 5;
+            StartNewGame();
+        }
         private void 重新开始ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartNewGame();
@@ -247,6 +252,8 @@ namespace snake
             StartNewGame();
             p.CreateWall(myMapList);
         }
+
+        
 
         
     }

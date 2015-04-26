@@ -81,6 +81,7 @@ namespace snake
             wallDelegateArray.Add((SetWallDelegate)(Wall_道路));
             wallDelegateArray.Add((SetWallDelegate)(Wall_风车));
             wallDelegateArray.Add((SetWallDelegate)(Wall_春字));
+            wallDelegateArray.Add((SetWallDelegate)(Wall_UPC));
         }
 
         private void Wall_无()
@@ -254,6 +255,89 @@ namespace snake
             }
 
                 this._walls = wall;
+        }
+
+        private void Wall_UPC()
+        {
+            ArrayList wall = new ArrayList();
+
+            for (int i = 0; i < this._width; i++)
+            {
+                for(int j=0;j<this._height;j++)
+                {
+                    if(i>=2&&i<=4)
+                    {
+                        if(j==2||j==6)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if(i==5)
+                    {
+                        if((j>10&&j<=13)||j==2||j==6)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if (i == 6)
+                    {
+                        if(j>=3&&j<=5)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                        else if (j == 9 || j == 14)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if (i == 7)
+                    {
+                        if (j == 9 || j == 14)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if (i == 8)
+                    {
+                        if(j==9||j==12||j==13)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if (i >= 9 && i <= 11)
+                    {
+                        if(j==9)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if(i==12)
+                    {
+                        if(j>=13&&j<=16)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if(i>=13&&i<=16)
+                    {
+                        if(j==12)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                    else if(i==17)
+                    {
+                        if(j>=13&&j<=16)
+                        {
+                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
+                        }
+                    }
+                }
+
+            }
+
+
+            this._walls = wall;
         }
 
         public void CreateWall(bool[,] myMap)

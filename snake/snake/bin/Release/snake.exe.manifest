@@ -4,7 +4,7 @@
   <description asmv2:iconFile="snake.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="snake" version="0.1.4.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="snake" version="0.1.5.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="snake.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="snake.exe" size="76688">
-      <assemblyIdentity name="snake" version="0.1.4.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="snake.exe" size="77712">
+      <assemblyIdentity name="snake" version="0.1.5.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZluEXeehDc6Gn1wAJRBVoWAZr6cZhNxl4K0iDHY54m4=</dsig:DigestValue>
+        <dsig:DigestValue>mtw9TYPv4NFAWS53oHcbWrDSIFrisomwscdiME00r0A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
