@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("snake")]
-[assembly: AssemblyDescription("v0.1.3修正一些自定义地图错误，改变程序结构，庆祝春节增加”春“字地图")]
+[assembly: AssemblyDescription("v0.1.7改变了地图生成方式，删除了春字地图。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Li XiaYu")]
 [assembly: AssemblyProduct("snake")]
@@ -32,5 +33,6 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.5.0")]
-[assembly: AssemblyFileVersion("0.1.5.0")]
+[assembly: AssemblyVersion("0.1.7.0")]
+[assembly: AssemblyFileVersion("0.1.7.0")]
+[assembly: NeutralResourcesLanguageAttribute("")]

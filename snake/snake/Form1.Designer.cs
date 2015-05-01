@@ -41,18 +41,12 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.使用自定义迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置自定义迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.无迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.口字迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.道路迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.风车迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.春字迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重新开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
-            this.uPC迷宫ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -133,13 +127,7 @@
             // 地图ToolStripMenuItem
             // 
             this.地图ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3,
-            this.无迷宫ToolStripMenuItem,
-            this.口字迷宫ToolStripMenuItem,
-            this.道路迷宫ToolStripMenuItem,
-            this.风车迷宫ToolStripMenuItem,
-            this.春字迷宫ToolStripMenuItem,
-            this.uPC迷宫ToolStripMenuItem});
+            this.toolStripMenuItem3});
             this.地图ToolStripMenuItem.Name = "地图ToolStripMenuItem";
             this.地图ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.地图ToolStripMenuItem.Text = "地图";
@@ -166,41 +154,6 @@
             this.设置自定义迷宫ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.设置自定义迷宫ToolStripMenuItem.Text = "设置自定义迷宫";
             this.设置自定义迷宫ToolStripMenuItem.Click += new System.EventHandler(this.设置自定义迷宫ToolStripMenuItem_Click);
-            // 
-            // 无迷宫ToolStripMenuItem
-            // 
-            this.无迷宫ToolStripMenuItem.Name = "无迷宫ToolStripMenuItem";
-            this.无迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.无迷宫ToolStripMenuItem.Text = "无迷宫";
-            this.无迷宫ToolStripMenuItem.Click += new System.EventHandler(this.无迷宫ToolStripMenuItem_Click);
-            // 
-            // 口字迷宫ToolStripMenuItem
-            // 
-            this.口字迷宫ToolStripMenuItem.Name = "口字迷宫ToolStripMenuItem";
-            this.口字迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.口字迷宫ToolStripMenuItem.Text = "口字迷宫";
-            this.口字迷宫ToolStripMenuItem.Click += new System.EventHandler(this.口字迷宫ToolStripMenuItem_Click);
-            // 
-            // 道路迷宫ToolStripMenuItem
-            // 
-            this.道路迷宫ToolStripMenuItem.Name = "道路迷宫ToolStripMenuItem";
-            this.道路迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.道路迷宫ToolStripMenuItem.Text = "道路迷宫";
-            this.道路迷宫ToolStripMenuItem.Click += new System.EventHandler(this.道路迷宫ToolStripMenuItem_Click);
-            // 
-            // 风车迷宫ToolStripMenuItem
-            // 
-            this.风车迷宫ToolStripMenuItem.Name = "风车迷宫ToolStripMenuItem";
-            this.风车迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.风车迷宫ToolStripMenuItem.Text = "风车迷宫";
-            this.风车迷宫ToolStripMenuItem.Click += new System.EventHandler(this.风车迷宫ToolStripMenuItem_Click);
-            // 
-            // 春字迷宫ToolStripMenuItem
-            // 
-            this.春字迷宫ToolStripMenuItem.Name = "春字迷宫ToolStripMenuItem";
-            this.春字迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.春字迷宫ToolStripMenuItem.Text = "春字迷宫";
-            this.春字迷宫ToolStripMenuItem.Click += new System.EventHandler(this.春字迷宫ToolStripMenuItem_Click);
             // 
             // 重新开始ToolStripMenuItem
             // 
@@ -249,13 +202,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 
-            // uPC迷宫ToolStripMenuItem
-            // 
-            this.uPC迷宫ToolStripMenuItem.Name = "uPC迷宫ToolStripMenuItem";
-            this.uPC迷宫ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.uPC迷宫ToolStripMenuItem.Text = "UPC迷宫";
-            this.uPC迷宫ToolStripMenuItem.Click += new System.EventHandler(this.uPC迷宫ToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -296,16 +242,10 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem 确定ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 地图ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 无迷宫ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 口字迷宫ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 道路迷宫ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 风车迷宫ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重新开始ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 使用自定义迷宫ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 设置自定义迷宫ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 春字迷宫ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uPC迷宫ToolStripMenuItem;
     }
 }
 

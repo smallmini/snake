@@ -40,3 +40,4 @@ F:\编程设计\vs\c#\desktop\snake\snake\snake\obj\Release\snake.Properties.Res
 F:\编程设计\vs\c#\desktop\snake\snake\snake\obj\Release\snake.csproj.GenerateResource.Cache
 F:\编程设计\vs\c#\desktop\snake\snake\snake\obj\Release\snake.exe.manifest
 F:\编程设计\vs\c#\desktop\snake\snake\snake\obj\Release\snake.application
+F:\编程设计\vs\c#\desktop\snake\snake\snake\obj\Release\snake.Resource.resources

@@ -14,21 +14,12 @@ namespace snake
     {
         Label[,] mapBlock = new Label[20, 20];
 
-        bool[,] map = new bool[20, 20];
-            public bool[,] Map
-            {
-                get { return map; }
-                /*set { map = value; }*/
-            }
+        public string mapStr = "";
 
 
-        public delegate void SetValueDelegate();
+        public delegate void SetValueDelegate(string m);
         public SetValueDelegate setMap;
-        public SetValueDelegate setMyMapList;
-        public SetValueDelegate setShow;
-        public SetValueDelegate setCreateWall;
-        public SetValueDelegate setStartNewGame;
-
+        public SetValueDelegate start;
 
 
         public myMap()
@@ -81,33 +72,44 @@ namespace snake
                 {
                     if(mapBlock[i,j].BackColor==Color.Blue)
                     {
-                        map[i, j] = true;
+                        this.mapStr += "1";
                     }
                     else if(mapBlock[i,j].BackColor==Color.White)
                     {
-                        map[i, j] = false;
+                        this.mapStr += "0";
                     }
                 }
             }
 
+            this.setMap(this.mapStr);
             
             this.Hide();
 
-            setMyMapList();
-
-            setShow();
-
-            setMap();
-            setCreateWall();
-            setStartNewGame();
-            setCreateWall();
+            
+            
             this.Close();
             
         }
 
         private void myMap_FormClosing(object sender, FormClosingEventArgs e)
         {
-            setShow();
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    if (mapBlock[i, j].BackColor == Color.Blue)
+                    {
+                        this.mapStr += "1";
+                    }
+                    else if (mapBlock[i, j].BackColor == Color.White)
+                    {
+                        this.mapStr += "0";
+                    }
+                }
+            }
+
+            this.setMap(this.mapStr);
+
         }
 
 

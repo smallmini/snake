@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace snake
 {
@@ -18,41 +19,61 @@ namespace snake
         private int _height = 20;
         private Color _bgColor;
         private Graphics _gpPalette;
-        private ArrayList _blocks;//蛇身array数组。
-        private Driection _driection;//蛇的运动方向，蛇头的运动方向。
-
-        private ArrayList _walls;//墙壁array数组。
+        /// <summary>
+        /// 蛇身array数组
+        /// </summary>
+        private ArrayList _blocks;
+        /// <summary>
+        /// 蛇的运动方向，蛇头的运动方向
+        /// </summary>
+        private Driection _driection;
+        /// <summary>
+        /// 墙壁array数组
+        /// </summary>
+        private ArrayList _walls;
         
         private System.Timers.Timer timerBlock;
         private Block _food;
         private int _size = 20;
         private int _level = 1;
-
             public int Level
             {
                 /*get { return _level; }*/
                 set { _level = value; }
             }
-        private int _map = 0;
+        public Map map;
 
-            public int Map
-            {
-                /*get { return _map; }*/
-                set { _map = value; }
-            }
         private bool _isGameOver = false;
         private int[] _speed = new int[] { 500, 450, 400, 350, 300, 250, 200, 150, 100, 50 };
 
         public bool keylock = false;
         public int score = 0;
         private Label lblScore;
-      
-        public delegate void AppendStringDelegate(string str);//
-        public AppendStringDelegate resetSocerText;//socer显示 用 委托
+        /// <summary>
+        /// socer显示 用 委托
+        /// </summary>
+        /// <param name="str">显示用 字符串</param>
+        public delegate void AppendStringDelegate(string str);
+        /// <summary>
+        /// socer显示 用 委托
+        /// </summary>
+        public AppendStringDelegate resetSocerText;
 
-        public delegate void SetWallDelegate();//
-        public ArrayList wallDelegateArray;//迷宫墙壁 设置 委托 组
 
+        private XmlDocument mapRes=new XmlDocument();
+        private XmlNode mapListNode;
+        private XmlNodeList mapNodes;
+
+        public List<Map> maps = new List<Map>();
+
+        /// <summary>
+        /// 生成 游戏引擎
+        /// </summary>
+        /// <param name="width">地图块宽度</param>
+        /// <param name="height">地图块高度</param>
+        /// <param name="size">地图大小，正方体边长</param>
+        /// <param name="bgColor">背景色</param>
+        /// <param name="g">绘图目标 元素</param>
         public Palette(int width,int height,int size,Color bgColor,Graphics g)
         {
             _width = width;
@@ -65,298 +86,16 @@ namespace snake
             _blocks.Insert(1, new Block(Color.Red, this._size, new Point(this._width / 2 - 1, this._height / 2)));
             _blocks.Insert(2, new Block(Color.Red, this._size, new Point(this._width / 2 - 2, this._height / 2)));
 
-            RegisterWall();
-
             
+
+            this.ReadXML();
+
+            this.map = this.maps[0];
+           
             
             _driection = Driection.Right;
         }
-
-        private void RegisterWall()
-        {
-            wallDelegateArray = new ArrayList();
-
-            wallDelegateArray.Add((SetWallDelegate)(Wall_无));
-            wallDelegateArray.Add((SetWallDelegate)(Wall_口字));
-            wallDelegateArray.Add((SetWallDelegate)(Wall_道路));
-            wallDelegateArray.Add((SetWallDelegate)(Wall_风车));
-            wallDelegateArray.Add((SetWallDelegate)(Wall_春字));
-            wallDelegateArray.Add((SetWallDelegate)(Wall_UPC));
-        }
-
-        private void Wall_无()
-        {
-            ArrayList wall = new ArrayList();
-
-            wall.Insert(0, new Block(Color.LightPink, this._size, new Point(-1, -1)));
-
-            this._walls = wall;
-        }
-
-        private void Wall_口字()
-        {
-            ArrayList wall = new ArrayList();
-
-            for (int i = 0; i < this._width; i++)
-            {
-                wall.Insert(i, new Block(Color.Blue, this._size, new Point(i, 0)));
-            }
-            for (int i = this._width; i < this._width+(this._height-2)*2; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    wall.Insert(i, new Block(Color.Blue, this._size, new Point(0, (i - this._width) / 2 + 1)));
-                }
-                else
-                {
-                    wall.Insert(i, new Block(Color.Blue, this._size, new Point(this._width-1, (i - this._width-1) / 2 + 1)));
-                }
-            }
-            for (int i = this._width + (this._height - 2) * 2; i < (this._width + (this._height - 2)) * 2; i++)
-            {
-                wall.Insert(i, new Block(Color.Blue, this._size, new Point(i - this._width - (this._height - 2) * 2, this._height - 1)));
-            }
-
-            this._walls = wall;
-        }
-
-        private void Wall_道路()
-        {
-            ArrayList wall = new ArrayList();
-
-            for(int i=this._width/10+1;i<this._width-this._width/10-1;i++)
-            {
-                wall.Add(new Block(Color.Blue, this._size, new Point(i, this._height / 3)));
-                wall.Add(new Block(Color.Blue, this._size, new Point(i, this._height / 3 * 2)));
-
-            }
-
-
-            this._walls = wall;
-        }
-
-        private void Wall_风车()
-        {
-            ArrayList wall = new ArrayList();
-
-            for (int i = 0; i < this._height / 2; i++)
-            {
-                wall.Add(new Block(Color.Blue, this._size, new Point(this._width / 4, i)));
-            }
-            for (int i = 0; i < this._width / 2; i++)
-            {
-                wall.Add(new Block(Color.Blue, this._size, new Point(i, 3 * this._height / 4)));
-            }
-            for (int i = this._height / 2; i < this._height; i++)
-            {
-                wall.Add(new Block(Color.Blue, this._size, new Point(3 * this._width / 4, i)));
-            }
-            for (int i = this._width / 2; i < this._width; i++)
-            {
-                wall.Add(new Block(Color.Blue, this._size, new Point(i, this._height / 4)));
-            }
-
-            this._walls = wall;
-        }
-
-        private void Wall_春字()
-        {
-            ArrayList wall = new ArrayList();
-
-            for (int i = 0; i < 20;i++ )
-            {
-                for(int j=0;j<20;j++)
-                {
-                    if ((i >= 1 && i <= 2) || (i >= 4 && i <= 5) || (i >= 7 && i <= 8))
-                    {
-                        if (j >= 9 && j <= 10)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 3)
-                    {
-                        if (j >= 4 && j <= 15)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 6)
-                    {
-                        if (j >= 6 && j <= 13)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 9)
-                    {
-                        if (j >= 3 && j <= 16)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 11)
-                    {
-                        if (j >= 8 && j <= 12)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 12)
-                    {
-                        if ((j >= 5 && j <= 8) || (j >= 13 && j <= 14))
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 13)
-                    {
-                        if ((j == 5 )|| (j == 8) || (j >= 13 && j <= 15))
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 14)
-                    {
-                        if ((j >= 3 && j <= 5) || (j >= 10 && j <= 13) || (j == 16))
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 15)
-                    {
-                        if ((j == 13) || (j >= 16 && j <= 17))
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 16)
-                    {
-                        if (j == 13)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 17)
-                    {
-                        if (j == 8 || j == 13)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    if (i == 18)
-                    {
-                        if (j >= 8 && j <= 13)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                }
-            }
-
-                this._walls = wall;
-        }
-
-        private void Wall_UPC()
-        {
-            ArrayList wall = new ArrayList();
-
-            for (int i = 0; i < this._width; i++)
-            {
-                for(int j=0;j<this._height;j++)
-                {
-                    if(i>=2&&i<=4)
-                    {
-                        if(j==2||j==6)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if(i==5)
-                    {
-                        if((j>10&&j<=13)||j==2||j==6)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if (i == 6)
-                    {
-                        if(j>=3&&j<=5)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                        else if (j == 9 || j == 14)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if (i == 7)
-                    {
-                        if (j == 9 || j == 14)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if (i == 8)
-                    {
-                        if(j==9||j==12||j==13)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if (i >= 9 && i <= 11)
-                    {
-                        if(j==9)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if(i==12)
-                    {
-                        if(j>=13&&j<=16)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if(i>=13&&i<=16)
-                    {
-                        if(j==12)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                    else if(i==17)
-                    {
-                        if(j>=13&&j<=16)
-                        {
-                            wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                        }
-                    }
-                }
-
-            }
-
-
-            this._walls = wall;
-        }
-
-        public void CreateWall(bool[,] myMap)
-        {
-            ArrayList wall = new ArrayList();
-
-            for (int i = 0; i < 20; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    if(myMap[i,j]==true)
-                    {
-                        wall.Add(new Block(Color.Blue, this._size, new Point(j, i)));
-                    }
-                }
-            }
-
-            this._walls = wall;
-        }
+       
 
         public Driection Driection
         {
@@ -367,7 +106,7 @@ namespace snake
         public void Start()
         {
             //绘制地图
-            ((SetWallDelegate)wallDelegateArray[this._map])();
+            this._walls = this.map.BuildWall();
             //生成食物
             this._food = GetFood();
             //注册计时器事件，开始计时器
@@ -578,30 +317,34 @@ namespace snake
         }
 
         
-        private void WriteWallArray()
+        private void WriteXML()
         {
-            BinaryFormatter formater = new BinaryFormatter();
-
-            FileStream fs = new FileStream("WallArray.ini", FileMode.Create, FileAccess.Write, FileShare.None);
-
-            formater.Serialize(fs, this.wallDelegateArray);
-
-            fs.Close();
+            
         }
+        /// <summary>
+        /// 从资源文件中读取地图xml信息并添加进List中
+        /// </summary>
+        private void ReadXML()
+        {   
+            this.mapRes.LoadXml(snake.Resource.map);
+            this.mapListNode = this.mapRes.SelectSingleNode("MapList");
+            this.mapNodes = this.mapListNode.ChildNodes;
 
-        private void ReadWallArray()
-        {
-            BinaryFormatter formater = new BinaryFormatter();
+            foreach(XmlNode node in this.mapNodes)
+            {
+                
+                XmlElement element = (XmlElement)(node);
 
-            FileStream fs = new FileStream("WallArray.ini", FileMode.Open, FileAccess.Read, FileShare.Read);
+                Map myMap = new Map(element.GetAttribute("name"), element.GetAttribute("walls"));
 
-            this.wallDelegateArray = (ArrayList)formater.Deserialize(fs);
-
-            fs.Close();
+                this.maps.Add(myMap);
+            }
 
         }
     }
-
+    /// <summary>
+    /// 表示蛇头运动的方向
+    /// </summary>
     public enum Driection
     {
         Left,
@@ -609,4 +352,6 @@ namespace snake
         Up,
         Down
     }
+
+    
 }

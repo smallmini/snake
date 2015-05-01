@@ -23,7 +23,8 @@ namespace snake
         }
 
         private int level = 5;
-        private int map = 0;
+        private Map map ;
+        private Map mapDIY;
 
         public bool[,] myMapList = new bool[20, 20];
         public Form1()
@@ -74,6 +75,28 @@ namespace snake
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            p = new Palette(20, 20, 20, this.pictureBox1.BackColor, Graphics.FromHwnd(this.pictureBox1.Handle));
+
+            int i = 0;
+            foreach (Map myMap in this.p.maps)
+            {
+                ToolStripMenuItem myMapItem = new ToolStripMenuItem();
+                myMapItem.Text = myMap.Name;
+                myMapItem.Click += delegate(object _sender, EventArgs _e) 
+                                   { 
+                                       foreach(Map mymap in this.p.maps)
+                                       {
+                                           if(mymap.Name==((ToolStripMenuItem)_sender).Text)
+                                           {
+                                               this.map = mymap;
+                                           }
+                                       }
+                                       this.StartNewGame(); 
+                                   };
+                this.地图ToolStripMenuItem.DropDownItems.Add(myMapItem);
+                i++;
+            }
+
             StartGame();
         }
 
@@ -81,7 +104,7 @@ namespace snake
         {
             int width = 20;
             int height = 20;
-            int size = 15;
+            int size = 20;
 
             this.pictureBox1.Width = width * size;
             this.pictureBox1.Height = height * size;
@@ -90,10 +113,12 @@ namespace snake
             
             p = new Palette(width, height, size, this.pictureBox1.BackColor, Graphics.FromHwnd(this.pictureBox1.Handle));
             p.Level = level;
-            if (map >= 0) 
+
+            if (map != null) 
             {
-                p.Map = map; 
+                p.map = map; 
             }
+
             p.PointLabel(label1);
             p.resetSocerText += delegate(string a) { label1.Text = a; };
             p.Start();
@@ -105,12 +130,6 @@ namespace snake
         {
             p.Pause();
             MessageBox.Show("使用上下左右键或者WASD控制小蛇的方向。", "帮助");
-        }
-
-
-        private void 新游戏ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void StartNewGame()
@@ -168,7 +187,7 @@ namespace snake
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.Pause();
-            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.5by Li XiaYu aasll@126.com", "关于");
+            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.7by Li XiaYu aasll@126.com", "关于");
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -179,52 +198,8 @@ namespace snake
         private void 确定ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartNewGame();
-            if(map==-1)
-            {
-                p.CreateWall(myMapList);
-            }
         }
 
-        private void 无迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            map = 0;
-            StartNewGame();
-
-        }
-
-        private void 口字迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            map = 1;
-            StartNewGame();
-
-        }
-
-        private void 道路迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            map = 2;
-            StartNewGame();
-        }
-
-        private void 风车迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            map = 3;
-            StartNewGame();
-
-        }
-
-        private void 春字迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            map = 4;
-            StartNewGame();
-        }
-
-        private void uPC迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            map = 5;
-            StartNewGame();
-        }
         private void 重新开始ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartNewGame();
@@ -232,25 +207,29 @@ namespace snake
 
         private void 设置自定义迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             snake.myMap myMapForm = new myMap();
             this.Hide();
 
-            myMapForm.setMap = delegate() { this.map = -1; };
-            myMapForm.setMyMapList = delegate() { this.myMapList = myMapForm.Map; };
-            myMapForm.setShow = delegate() { this.Show(); };
-            myMapForm.setCreateWall = delegate() { this.p.CreateWall(this.myMapList); };
-            myMapForm.setStartNewGame = delegate() { this.StartNewGame(); };
+            myMapForm.setMap += delegate(string m) 
+                                { 
+                                    this.mapDIY = new Map("自定义地图", m);
+                                    if (this.Visible == false)
+                                    { 
+                                        this.Show(); 
+                                    }
+                                };
 
             myMapForm.Show();
-
+            
             
         }
 
         private void 使用自定义迷宫ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map = -1;
+            this.map=this.mapDIY;
             StartNewGame();
-            p.CreateWall(myMapList);
+
         }
 
         
