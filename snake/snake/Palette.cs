@@ -325,8 +325,17 @@ namespace snake
         /// 从资源文件中读取地图xml信息并添加进List中
         /// </summary>
         private void ReadXML()
-        {   
-            this.mapRes.LoadXml(snake.Resource.map);
+        {
+            try
+            {
+                mapRes.Load(@"map.xml");
+            }
+            catch (Exception)
+            {
+                this.mapRes.LoadXml(snake.Resource.map);
+            }
+            
+            
             this.mapListNode = this.mapRes.SelectSingleNode("MapList");
             this.mapNodes = this.mapListNode.ChildNodes;
 
