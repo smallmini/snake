@@ -187,7 +187,7 @@ namespace snake
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             p.Pause();
-            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.8by Li XiaYu aasll@126.com", "关于");
+            MessageBox.Show("贪吃蛇snake，用于学习测试v0.1.9by Li XiaYu aasll@126.com", "关于");
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)

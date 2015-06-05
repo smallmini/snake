@@ -48,7 +48,7 @@ namespace snake
             }
 
             this.Width = 20 * 20 + 80;
-            this.Height = 20 * 20 + 50;
+            this.Height = 20 * 20 + 100;
         }
 
         private void mapBlock_Click(object sender, EventArgs e)
@@ -66,20 +66,7 @@ namespace snake
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for(int i=0;i<20;i++)
-            {
-                for(int j=0;j<20;j++)
-                {
-                    if(mapBlock[i,j].BackColor==Color.Blue)
-                    {
-                        this.mapStr += "1";
-                    }
-                    else if(mapBlock[i,j].BackColor==Color.White)
-                    {
-                        this.mapStr += "0";
-                    }
-                }
-            }
+            BuildMap();
 
             this.setMap(this.mapStr);
             
@@ -91,8 +78,10 @@ namespace snake
             
         }
 
-        private void myMap_FormClosing(object sender, FormClosingEventArgs e)
+        private void BuildMap()
         {
+            this.mapStr = "";
+
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -107,9 +96,21 @@ namespace snake
                     }
                 }
             }
+        }
+
+        private void myMap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BuildMap();
 
             this.setMap(this.mapStr);
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            BuildMap();
+
+            this.textBox1.Text = this.mapStr;
         }
 
 

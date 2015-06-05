@@ -7,7 +7,7 @@ using System.Resources;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("snake")]
-[assembly: AssemblyDescription("v0.1.8现在你可以自己写map.xml文件了，和snake.exe放在一起。")]
+[assembly: AssemblyDescription("v0.1.9设置自定义地图时可以生成xml里的地图string信息了，只需要复制添加到map.xml文件里。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Li XiaYu")]
 [assembly: AssemblyProduct("snake")]
@@ -33,6 +33,6 @@ using System.Resources;
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.8.0")]
-[assembly: AssemblyFileVersion("0.1.8.0")]
+[assembly: AssemblyVersion("0.1.9.0")]
+[assembly: AssemblyFileVersion("0.1.9.0")]
 [assembly: NeutralResourcesLanguageAttribute("")]
